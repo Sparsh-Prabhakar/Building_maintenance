@@ -16,7 +16,7 @@
 
             }
             h3{
-                margin-left:46%;
+                text-align: center;
             }
         </style>    
     </head>
@@ -25,19 +25,19 @@
         <br><br>
         <h3>Parking Slots</h3>
         <br>
-        <div class="row" style="margin-left:32%">
+        <div class="row" style="margin-left:36%">
             @foreach($ids as $id)
                 @if($id->filled == 1)
-                    <div class="jumbotron" style="background-color: red;color:white;padding:5%"><h1>{{$id->id}}</h1></div>
+                    <img src="/images/carParked.jfif" alt="photo">
                 @else
-                    <div class="jumbotron" style="background-color: green;color:white;padding:5%"><h1>{{$id->id}}</h1></div>
+                    <img src="/images/parkingClear.jfif" alt="photo">
                 @endif
             @endforeach
         </div>
         <script>
             setTimeout(function() {
                 location.reload();
-            }, 1000);
+            }, 100);
         </script>   
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\parking;
 use App\corridor_lighting;
 use App\security;
+use App\lights_status;
 use Illuminate\Http\Request;
 
 class ParkingController extends Controller
@@ -13,8 +14,12 @@ class ParkingController extends Controller
         return view('parking')->with('ids',$id);
     }
     public function corridor_lighting(){
-        $id = corridor_lighting::get();
-        return view('corridor_lighting')->with('ids',$id);
+        $data = array(
+            'ids' => corridor_lighting::get(),
+            'lid' => lights_status::get(),
+        );
+
+        return view('corridor_lighting')->with($data);
     }
 
     public function security(){

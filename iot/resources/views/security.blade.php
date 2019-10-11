@@ -33,7 +33,7 @@
         <script>
             setTimeout(function() {
                 location.reload();
-            }, 1000);
+            }, 100);
         </script>
     </body>
 </html>
