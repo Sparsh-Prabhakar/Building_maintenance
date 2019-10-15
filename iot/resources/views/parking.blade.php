@@ -21,6 +21,7 @@
         </style>    
     </head>
     <body> 
+            <a href="/" class="btn btn-danger" role="button" style="margin:20px">Back</a>
         <h1>Parking System</h1>  
         <br><br>
         <h3>Parking Slots</h3>

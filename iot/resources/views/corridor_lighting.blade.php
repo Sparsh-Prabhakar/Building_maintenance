@@ -1,5 +1,18 @@
 <?php
     use App\lights_status;
+    use Illuminate\Support\Facades\DB;
+    $a =  DB::select('call gethours');
+    $b = DB::select('SELECT min(on_time) as min, max(on_time) as max from corridor_lighting');
+    $c = DB::select('SELECT * from eunit');
+    $start = $b[0]->min;
+    $end = $b[0]->max;
+    $ontime = $a[0]->res;
+    $onhrs = $ontime/60;
+    $bulbwatt = $c[0]->bulbwatt;
+    $electricityunit = $c[0]->unit;
+    $totalEstimate = $onhrs * $electricityunit* $bulbwatt/1000;
+    $totaltime = $a[0]->mins;
+    $totaldays = $totaltime/(24*60);
 ?>
 <html>
     <head>
@@ -12,7 +25,7 @@
             }
             h1{
                 text-align: center;
-                margin-top: 10%;
+                margin-top: 5%;
             }
             .row{
                 margin-left:0%;
@@ -24,6 +37,7 @@
         </style>
     </head>
     <body>
+        <a href="/" class="btn btn-danger" role="button" style="margin:20px">Back</a>
         <h1>Corridor Lighting</h1>
         <br><br>
         <div class="row">
@@ -43,6 +57,32 @@
                 @endif
             @endforeach   
         </div>
+        <br><br>
+        <div class="container">
+
+
+            <h2 align = "center">COST ESTIMATE</h2>     
+            <p>This Estimate is for <b>{{floor($totaldays)}}</b> days.</p> 
+            <p>This data is recorded from <b>{{$start}}</b> to <b>{{$end}}</b></p> 
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                    <th>Bulb number</th>
+                  <th>Bulb Watt</th>
+                  <th>Total On Time(in hrs)</th>
+                  <th>Total Estimate for Bill in ₹</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>{{$bulbwatt}}</td>
+                  <td>{{$onhrs}}</td>
+                <td>{{$totalEstimate}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         <script>
             setTimeout(function() {
                 location.reload();

@@ -14,6 +14,7 @@
         </style>
     </head>
     <body>
+        <a href="/" class="btn btn-danger" role="button" style="margin:20px">Back</a>
         <h1>Security</h1>
         <table class="container table">
             <tr class="text-right">
