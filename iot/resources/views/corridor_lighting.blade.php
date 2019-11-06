@@ -10,6 +10,7 @@
     $onhrs = $ontime/60;
     $bulbwatt = $c[0]->bulbwatt;
     $electricityunit = $c[0]->unit;
+    $unitsconsumed= $onhrs* $bulbwatt/1000;
     $totalEstimate = $onhrs * $electricityunit* $bulbwatt/1000;
     $totaltime = $a[0]->mins;
     $totaldays = $totaltime/(24*60);
@@ -32,7 +33,7 @@
                 width:60%;
                 margin-left:20%;
                 padding-top: 1.5%;
-                padding-left: 10%; 
+                padding-left: 10%;
             }
         </style>
     </head>
@@ -62,14 +63,16 @@
 
 
             <h2 align = "center">COST ESTIMATE</h2>     
-            <p>This Estimate is for <b>{{floor($totaldays)}}</b> days.</p> 
+            <p>This Estimate is for last <b>{{floor($totaldays)}}</b> days.</p> 
             <p>This data is recorded from <b>{{$start}}</b> to <b>{{$end}}</b></p> 
             <table class="table table-dark">
               <thead>
                 <tr>
                     <th>Bulb number</th>
                   <th>Bulb Watt</th>
-                  <th>Total On Time(in hrs)</th>
+                  <th>Bulb On Time(in hrs)</th>
+                  <th>Total Units Consumed</th>
+                  <th>Cost per unit</th>
                   <th>Total Estimate for Bill in ₹</th>
                 </tr>
               </thead>
@@ -78,9 +81,28 @@
                   <td>1</td>
                   <td>{{$bulbwatt}}</td>
                   <td>{{$onhrs}}</td>
+                <td>{{$unitsconsumed}}</td>
+                <td>₹{{$electricityunit}}</td>
                 <td>{{$totalEstimate}}</td>
-                </tr>
+                </tr>   
               </tbody>
+            </table>
+            <h2 align = "center">Power Consumed History</h2> 
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th>Day Number</th>
+                    <th>Power Consumed</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($power as $id)
+                    <tr>
+                        <td>{{$id->id}}</td>
+                        <td>{{$id->powerConsumed}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
           </div>
         <script>

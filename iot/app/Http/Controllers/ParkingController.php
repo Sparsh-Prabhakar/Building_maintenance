@@ -6,6 +6,7 @@ use App\corridor_lighting;
 use App\security;
 use App\lights_status;
 use Illuminate\Http\Request;
+use App\powerConsumed;
 
 class ParkingController extends Controller
 {
@@ -17,6 +18,7 @@ class ParkingController extends Controller
         $data = array(
             'ids' => corridor_lighting::get(),
             'lid' => lights_status::get(),
+            'power' =>powerConsumed::get(),
         );
 
         return view('corridor_lighting')->with($data);
